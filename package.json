@@ -4,5 +4,6 @@
   "description": "This is the operation library of Smart Contract and Wallet.",
   "main": "index.js",
   "author": "Mark.T",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }

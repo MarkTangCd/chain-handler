@@ -3,12 +3,12 @@ import { Networks, NetworksDetails } from '../config/index';
 const ethers = require('ethers');
 
 class WalletHandler {
-  provider = null;
-  signer = null;
-  isConnected = false;
-  currentAddress = null;
 
   constructor() {
+    this.provider = null;
+    this.signer = null;
+    this.currentAddress = null;
+
     if (window.ethereum) {
       this.provider = new ethers.providers.Web3Provider(window.ethereum);
       this.signer = this.provider.getSigner();
@@ -26,7 +26,6 @@ class WalletHandler {
     try {
       let address = await this.signer.getAddress();
       this.currentAddress = address;
-      this.isConnected = true;
       return address;
     } catch(err) {
       if (err.code === UNSUPPORTED_OPERATION) {
@@ -63,7 +62,12 @@ class WalletHandler {
       throw new Error('This listener item does not exist.');
     }
 
-    window.ethereum.on(item, callback);
+    try {
+      window.ethereum.on(item, callback);
+    } catch (err) {
+      console.log('Listen to error.');
+      console.log(err);
+    }
   }
 
   async switchNetwork(network, callback = () => {}) {
@@ -91,7 +95,7 @@ class WalletHandler {
       if (err.code === NOT_THE_CHAIN) {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
-          params: [detail.config]
+          params: [detail.config, this.currentAddress]
         });
         callback();
       } else {

@@ -58,20 +58,20 @@ const NetworksDetails = [
   {
     id: 'OEC-Testnet',
     name: 'OEC Testnet',
-    chainId: '0x42',
+    chainId: '0x41',
     label: 'OEC Testnet',
     url: 'https://exchaintestrpc.okex.org',
     explorer: 'https://www.oklink.com/oec-test/',
     config: {
-      chainId: '0x42',
-      chainName: 'OEC Testnet',
+      chainId: '0x41',
+      chainName: 'OKExChain Testnet',
       nativeCurrency: {
-        name: 'OKT',
+        name: 'OKExChain Global Utility Token in testnet',
         symbol: 'OKT',
         decimals: 18,
       },
       rpcUrls: ['https://exchaintestrpc.okex.org'],
-      blockExplorerUrls: ['https://www.oklink.com/oec-test/'],
+      blockExplorerUrls: ['https://www.oklink.com/okexchain-test'],
     },
   },
   // Main network
@@ -121,16 +121,16 @@ const NetworksDetails = [
     explorer: 'https://www.oklink.com/oec/',
     config: {
       chainId: '0x42',
-      chainName: 'OEC Mainnet',
+      chainName: 'OKExChain Mainnet',
       nativeCurrency: {
-        name: 'OKT',
+        name: 'OKExChain Global Utility Token',
         symbol: 'OKT',
         decimals: 18,
       },
       rpcUrls: ['https://exchainrpc.okex.org'],
-      blockExplorerUrls: ['https://www.oklink.com/oec/'],
+      blockExplorerUrls: ['https://www.oklink.com/okexchain'],
     },
-  },
+  }
 ]
 const Chains = unique(NetworksDetails.map((item) => item.name.split(' ')[0]))
 
@@ -140,7 +140,28 @@ const Networks = Object.freeze({
   OEC_TEST: 'OEC-Testnet',
   BSC_MAIN: 'BSC-Mainnet',
   ETH_MAIN: 'ETH-Mainnet',
-  OEC_MAIN: 'OEC-Mainnet'
-});
+  OEC_MAIN: 'OEC-Mainnet',
+})
 
-export { NetworksDetails, Networks, Chains }
+const ChainIdByNetwork = {
+  [Networks.BSC_TEST]: 97,
+  [Networks.ETH_TEST]: 4,
+  [Networks.OEC_TEST]: 41,
+  [Networks.BSC_MAIN]: 56,
+  [Networks.ETH_MAIN]: 1,
+  [Networks.OEC_MAIN]: 42,
+}
+
+const RpcList = {
+  [ChainIdByNetwork[Networks.BSC_TEST]]:
+    'https://data-seed-prebsc-2-s3.binance.org:8545/',
+  [ChainIdByNetwork[Networks.ETH_TEST]]:
+    'https://ropsten.infura.io/v3/a892bade64884ad6a13cf9981de659eb',
+  [ChainIdByNetwork[Networks.OEC_TEST]]: 'https://exchaintestrpc.okex.org',
+  [ChainIdByNetwork[Networks.BSC_MAIN]]: 'https://bsc-dataseed.binance.org/',
+  [ChainIdByNetwork[Networks.ETH_MAIN]]:
+    'https://mainnet.infura.io/v3/a892bade64884ad6a13cf9981de659eb',
+  [ChainIdByNetwork[Networks.OEC_TEST]]: 'https://exchainrpc.okex.org',
+}
+
+export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains }
