@@ -1,20 +1,19 @@
+import Base from './base';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { RpcList } from '../config/index';
 const ethers = require('ethers');
 
-class WalletConnector {
+class WalletConnector extends Base {
 
   constructor() {
-    this.provider = null;
-    this.signer = null;
-    this.currentAddress = null;
-    this.connector = null;
-
-    const provider = new WalletConnectProvider({
+    const wcProvider = new WalletConnectProvider({
       rpc: RpcList
     });
-    this.connector = provider;
-    this.provider = new ethers.providers.Web3Provider(provider);
+    const provider = new ethers.providers.Web3Provider(wcProvider);
+    super(provider);
+    this.currentAddress = null;
+    this.connector = wcProvider;
+    this.provider = provider;
     this.signer = this.provider.getSigner();
   }
 
@@ -48,11 +47,21 @@ class WalletConnector {
     try {
       let accounts = await this.connector.enable();
       this.currentAddress = accounts[0];
+      console.log(this.currentAddress);
 
       options.onSuccess(accounts[0]);
     } catch(err) {
+      console.log(err)
       options.onFail(err.message);
     }
+  }
+
+  async signMessage (message) {
+    return await this.connector.request({ method: 'eth_sign', params: [this.currentAddress, message] })
+  }
+
+  async personalSign(message){
+    throw new Error('please use signMessage for ConnectWallet.')
   }
 }
 

@@ -1,16 +1,16 @@
+import Base from './base';
 import { NOT_THE_CHAIN, UNSUPPORTED_OPERATION } from '../config/constants';
 import { Networks, NetworksDetails } from '../config/index';
 const ethers = require('ethers');
 
-class WalletHandler {
+class WalletHandler extends Base {
 
   constructor() {
-    this.provider = null;
-    this.signer = null;
-    this.currentAddress = null;
-
     if (window.ethereum) {
-      this.provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      super(provider);
+      this.currentAddress = null;
+      this.provider = provider;
       this.signer = this.provider.getSigner();
       this._init();
     } else {
@@ -102,6 +102,18 @@ class WalletHandler {
         console.error(err);
       }
     }
+  }
+
+  async signMessage(message) {
+    return window.ethereum.request({ method: 'eth_sign', params: [this.currentAddress, message] });
+  }
+
+  async personalSign(message){
+    return window.ethereum.request({
+      method: 'personal_sign',
+      params: [message, this.currentAddress],
+      from: this.currentAddress
+    });
   }
 }
 
