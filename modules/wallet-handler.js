@@ -7,25 +7,17 @@ class WalletHandler extends Base {
 
   constructor() {
     if (window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      super(provider);
-      this.currentAddress = null;
-      this.provider = provider;
-      this.signer = this.provider.getSigner();
-      this._init();
+      const originProvider = window.ethereum;
+      const web3Provider = new ethers.providers.Web3Provider(originProvider);
+      super(originProvider, web3Provider);
     } else {
       throw new Error('No provider exists for the current environment.');
     }
   }
 
-  async _init() {
-    this.getAddress();
-  }
-
   async getAddress() {
     try {
       let address = await this.signer.getAddress();
-      this.currentAddress = address;
       return address;
     } catch(err) {
       if (err.code === UNSUPPORTED_OPERATION) {
@@ -54,22 +46,6 @@ class WalletHandler extends Base {
       });
   }
 
-  listenForChanges(item, callback = () => {}) {
-    let items = ['chainChanged', 'accountsChanged'];
-    if (!item) {
-      throw new Error('This listener item cannot be empty.');
-    } else if (items.indexOf(item) === -1) {
-      throw new Error('This listener item does not exist.');
-    }
-
-    try {
-      window.ethereum.on(item, callback);
-    } catch (err) {
-      console.log('Listen to error.');
-      console.log(err);
-    }
-  }
-
   async switchNetwork(network, callback = () => {}) {
     // Checking to connect status of the wallet.
     let address = await this.getAddress();
@@ -95,25 +71,13 @@ class WalletHandler extends Base {
       if (err.code === NOT_THE_CHAIN) {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
-          params: [detail.config, this.currentAddress]
+          params: [detail.config, address]
         });
         callback();
       } else {
         console.error(err);
       }
     }
-  }
-
-  async signMessage(message) {
-    return window.ethereum.request({ method: 'eth_sign', params: [this.currentAddress, message] });
-  }
-
-  async personalSign(message){
-    return window.ethereum.request({
-      method: 'personal_sign',
-      params: [message, this.currentAddress],
-      from: this.currentAddress
-    });
   }
 }
 

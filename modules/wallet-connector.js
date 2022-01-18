@@ -6,15 +6,11 @@ const ethers = require('ethers');
 class WalletConnector extends Base {
 
   constructor() {
-    const wcProvider = new WalletConnectProvider({
+    const originProvider = new WalletConnectProvider({
       rpc: RpcList
     });
-    const provider = new ethers.providers.Web3Provider(wcProvider);
-    super(provider);
-    this.currentAddress = null;
-    this.connector = wcProvider;
-    this.provider = provider;
-    this.signer = this.provider.getSigner();
+    const web3Provider = new ethers.providers.Web3Provider(originProvider);
+    super(originProvider, web3Provider);
   }
 
   static getInstance() {
@@ -24,44 +20,33 @@ class WalletConnector extends Base {
     return WalletConnector.instance;
   }
 
-  listenForChanges(item, callback = () => {}) {
-    let items = ['chainChanged', 'accountsChanged', 'disconnect'];
-    if (!item) {
-      throw new Error('This listener item cannot be empty.');
-    } else if (items.indexOf(item) === -1) {
-      throw new Error('This listener item does not exist.');
-    }
-
-    try {
-      this.connector.on(item, callback);
-    } catch (err) {
-      console.log('Listen to error.');
-      console.log(err);
-    }
-  }
-
   async connect(options = {
     onSuccess: () => {},
     onFail: () => {}
   }) {
     try {
-      let accounts = await this.connector.enable();
-      this.currentAddress = accounts[0];
-      console.log(this.currentAddress);
+      let accounts = await this.originProvider.enable();
+
+      this.originProvider.on('disconnect', async(code, reason) => {
+        console.log(code, reason);
+      });
 
       options.onSuccess(accounts[0]);
     } catch(err) {
-      console.log(err)
+      console.log(err);
       options.onFail(err.message);
     }
   }
 
-  async signMessage (message) {
-    return await this.connector.request({ method: 'eth_sign', params: [this.currentAddress, message] })
+  disconnect() {
+    this.originProvider.wc.killSession();
   }
 
-  async personalSign(message){
-    throw new Error('please use signMessage for ConnectWallet.')
+  switchNetwork() {
+    this.originProvider.wc.updateSession({
+      chainId: 1,
+      accounts: ['0xDA543d0C58E38f5645E0Af1EbE12345d7B6B89F7']
+    });
   }
 }
 
