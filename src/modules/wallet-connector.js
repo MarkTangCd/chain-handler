@@ -1,6 +1,6 @@
 import Base from './base';
 import { RpcList } from '../config/index';
-const WalletConnectProvider = require('@walletconnect/web3-provider');
+import WalletConnectProvider from '@walletconnect/web3-provider';
 const ethers = require('ethers');
 
 class WalletConnector extends Base {

@@ -1,5 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import pkg from './package.json';
 
 export default {
@@ -19,6 +20,6 @@ export default {
       name: 'ChainHandler'
     }
   ],
-  plugins: [commonjs(), resolve()],
-  external: ['@walletconnect/web3-provider', 'ethers']
+  plugins: [json(), commonjs(), resolve()],
+  external: ['ethers']
 }
