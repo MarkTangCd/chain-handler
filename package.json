@@ -2,8 +2,23 @@
   "name": "chain-handler",
   "version": "0.2.0",
   "description": "This is the operation library of Smart Contract and Wallet.",
-  "main": "index.js",
+  "main": "lib/bundle.cjs.js",
+  "module": "lib/bundle.esm.js",
+  "browser": "lib/bundle.browser.js",
+  "types": "types/index.d.ts",
   "author": "Mark.T",
   "license": "ISC",
-  "dependencies": {}
+  "scripts": {
+    "build": "rollup -c",
+    "build:types": "tsc"
+  },
+  "dependencies": {
+    "@walletconnect/web3-provider": "^1.7.1",
+    "ethers": "^5.5.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "rollup": "^2.64.0"
+  }
 }
