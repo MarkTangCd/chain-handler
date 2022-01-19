@@ -1,4 +1,3 @@
-import resolve from "@rollup/plugin-node-resolve";
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import pkg from './package.json';
@@ -8,18 +7,27 @@ export default {
   output: [
     {
       file: pkg.main,
-      format: 'cjs'
+      format: 'cjs',
+      globals: {
+        '@walletconnect/web3-provider': 'WalletConnectProvider'
+      }
     },
     {
       file: pkg.module,
-      format: 'esm'
+      format: 'esm',
+      globals: {
+        '@walletconnect/web3-provider': 'WalletConnectProvider'
+      }
     },
     {
       file: pkg.browser,
       format: 'umd',
-      name: 'ChainHandler'
+      name: 'ChainHandler',
+      globals: {
+        '@walletconnect/web3-provider': 'WalletConnectProvider'
+      }
     }
   ],
-  plugins: [json(), commonjs(), resolve()],
-  external: ['ethers']
+  plugins: [json(), commonjs()],
+  external: ['@walletconnect/web3-provider', 'ethers']
 }
