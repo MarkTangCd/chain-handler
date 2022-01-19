@@ -25,11 +25,7 @@ class WalletConnector extends Base {
     onFail: () => {}
   }) {
     try {
-      let accounts = await this.originProvider.enable();
-
-      this.originProvider.on('disconnect', async(code, reason) => {
-        console.log(code, reason);
-      });
+      const accounts = await this.originProvider.enable();
 
       options.onSuccess(accounts[0]);
     } catch(err) {
@@ -40,13 +36,6 @@ class WalletConnector extends Base {
 
   disconnect() {
     this.originProvider.wc.killSession();
-  }
-
-  switchNetwork() {
-    this.originProvider.wc.updateSession({
-      chainId: 1,
-      accounts: ['0xDA543d0C58E38f5645E0Af1EbE12345d7B6B89F7']
-    });
   }
 }
 
