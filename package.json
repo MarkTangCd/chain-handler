@@ -1,6 +1,6 @@
 {
   "name": "chain-handler",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "This is the operation library of Smart Contract and Wallet.",
   "main": "lib/bundle.cjs.js",
   "module": "lib/bundle.esm.js",
