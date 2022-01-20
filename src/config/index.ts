@@ -1,17 +1,3 @@
-function unique(arr) {
-  if (!Array.isArray(arr)) {
-    console.log('type error!')
-    return
-  }
-  let array = []
-  for (let i = 0; i < arr.length; i++) {
-    if (array.indexOf(arr[i]) === -1) {
-      array.push(arr[i])
-    }
-  }
-  return array
-}
-
 const NetworksDetails = [
   // ETH Chain
   {
@@ -132,8 +118,6 @@ const NetworksDetails = [
     },
   }
 ]
-const Chains = unique(NetworksDetails.map((item) => item.name.split(' ')[0]))
-
 const Networks = Object.freeze({
   BSC_TEST: 'BSC-Testnet',
   ETH_TEST: 'ETH-Testnet',
@@ -164,4 +148,4 @@ const RpcList = {
   [ChainIdByNetwork[Networks.OEC_TEST]]: 'https://exchainrpc.okex.org',
 }
 
-export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains }
+export { NetworksDetails, ChainIdByNetwork, Networks, RpcList }
