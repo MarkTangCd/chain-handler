@@ -1,9 +1,9 @@
 import WalletHandler from './modules/wallet-handler';
-import WalletConnector from './modules/wallet-connector';
+import WcFactory from './modules/wallet-connector';
 import { Networks } from './config/index';
 
 export {
   WalletHandler,
-  WalletConnector,
+  WcFactory as createWalletConnect,
   Networks
 }; 

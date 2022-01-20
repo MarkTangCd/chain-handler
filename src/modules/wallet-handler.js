@@ -1,7 +1,7 @@
 import Base from './base';
 import { NOT_THE_CHAIN, UNSUPPORTED_OPERATION } from '../config/constants';
 import { Networks, NetworksDetails } from '../config/index';
-const ethers = require('ethers');
+import * as ethers from 'ethers';
 
 class WalletHandler extends Base {
 
