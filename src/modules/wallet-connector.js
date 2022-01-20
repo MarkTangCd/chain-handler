@@ -21,7 +21,7 @@ class WalletConnector extends Base {
 async function WcFactory(options = {
   onSuccess: () => {},
   onFail: () => {}
-}, network) {
+}, network = Networks.BSC_MAIN) {
   try {
     let values = Object.values(Networks);
     if (!network) {
