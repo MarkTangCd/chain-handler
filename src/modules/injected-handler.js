@@ -3,16 +3,11 @@ import { NOT_THE_CHAIN, UNSUPPORTED_OPERATION } from '../config/constants';
 import { Networks, NetworksDetails } from '../config/index';
 import * as ethers from 'ethers';
 
-class WalletHandler extends Base {
-
-  constructor() {
-    if (window.ethereum) {
-      const originProvider = window.ethereum;
-      const web3Provider = new ethers.providers.Web3Provider(originProvider);
-      super(originProvider, web3Provider);
-    } else {
-      throw new Error('No provider exists for the current environment.');
-    }
+class InjectedHandler extends Base {
+  constructor(provider) {
+    const type = 'injected';
+    const web3Provider = new ethers.providers.Web3Provider(provider);
+    super(provider, web3Provider, type);
   }
 
   async getAddress() {
@@ -26,13 +21,6 @@ class WalletHandler extends Base {
         console.error(err);
       }
     }
-  }
-
-  static getInstance() {
-    if (!WalletHandler.instance) {
-      WalletHandler.instance = new WalletHandler();
-    }
-    return WalletHandler.instance;
   }
 
   static connectWallet(callback = () => {}) {
@@ -81,4 +69,4 @@ class WalletHandler extends Base {
   }
 }
 
-export default WalletHandler;
+export default InjectedHandler;
