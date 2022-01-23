@@ -2,12 +2,27 @@
   "name": "chain-handler",
   "version": "0.3.0",
   "description": "This is the operation library of Smart Contract and Wallet.",
+  "keywords": [
+    "ethers",
+    "ethereum",
+    "web3",
+    "metamask",
+    "walletconnect"
+  ],
   "main": "lib/bundle.cjs.js",
   "module": "lib/bundle.esm.js",
   "browser": "lib/bundle.browser.js",
   "types": "types/index.d.ts",
-  "author": "Mark.T",
-  "license": "ISC",
+  "author": "MarkTang <MarkTangCd@hotmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/MarkTangCd/chain-handler",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkTangCd/chain-handler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarkTangCd/chain-handler/issues"
+  },
   "scripts": {
     "build": "rollup -c",
     "build:types": "tsc"

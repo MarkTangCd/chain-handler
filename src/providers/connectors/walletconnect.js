@@ -1,6 +1,6 @@
 import { RpcList, Networks, ChainIdByNetwork } from '../../config/index';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import WalletConnector from '../../modules/wallet-connect-handler';
+import WalletConnectHandler from '../../modules/wallet-connect-handler';
 
 const ConnectToWalletConnect = (options) => {
   return new Promise(async (resolve, reject) => {
@@ -30,8 +30,8 @@ const ConnectToWalletConnect = (options) => {
 
     try {
       const accounts = await provider.enable();
-      const walletConnector = new WalletConnector(provider);
-      resolve({walletConnector, accounts});
+      const walletConnectHandler = new WalletConnectHandler(provider);
+      resolve({walletConnectHandler, accounts});
     } catch(err) {
       reject(err);
     }

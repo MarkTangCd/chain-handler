@@ -1,7 +1,7 @@
 import Base from './base';
 import { NOT_THE_CHAIN, UNSUPPORTED_OPERATION } from '../config/constants';
 import { Networks, NetworksDetails } from '../config/index';
-import * as ethers from 'ethers';
+import { ethers } from 'ethers';
 
 class InjectedHandler extends Base {
   constructor(provider) {

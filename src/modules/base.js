@@ -1,7 +1,6 @@
 import { convertUtf8ToHex } from "@walletconnect/utils";
 import { hashPersonalMessage, recoverPublicKey } from '../helpers/index';
-
-const ethers = require('ethers');
+import { ethers } from 'ethers';
 
 class Base {
   constructor(originProvider, web3Provider, type) {
@@ -13,9 +12,9 @@ class Base {
 
   /**
    * general contract method
-   * @param address 
-   * @param abi 
-   * @param funcName : contract function name 
+   * @param address
+   * @param abi
+   * @param funcName : contract function name
    * @param args : contract function params
    * @returns query result
    */
@@ -26,9 +25,9 @@ class Base {
 
   /**
    * general contract method
-   * @param address 
-   * @param abi 
-   * @param funcName : contract function name 
+   * @param address
+   * @param abi
+   * @param funcName : contract function name
    * @param args : contract function params
    * @returns contract function execute result
    */

@@ -1,5 +1,5 @@
 import Base from './base';
-import * as ethers from 'ethers';
+import { ethers } from 'ethers';
 
 class WalletConnectHandler extends Base {
 
