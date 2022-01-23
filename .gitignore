@@ -2,13 +2,9 @@
 node_modules
 
 # ignore transpiled files
-dist
 lib
-
-.env
 
 #misc
 .DS_Store
 
 package-lock.json
-.eslintcache
