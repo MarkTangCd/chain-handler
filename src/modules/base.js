@@ -10,6 +10,10 @@ class Base {
     this.type = type;
   }
 
+  getCurrentNetwork() {
+    return 1;
+  }
+
   /**
    * general contract method
    * @param address
