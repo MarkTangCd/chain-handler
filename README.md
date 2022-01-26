@@ -29,6 +29,7 @@ let address = await injectedHandler.getAddress();
 injectedHandler.switchNetwork(Networks.BSC_MAIN); // BSC main net
 injectedHandler.switchNetwork(Networks.ETH_MAIN); // ETH main net
 injectedHandler.switchNetwork(Networks.OEC_MAIN); // OEC main net
+injectedHandler.switchNetwork(Networks.ETH_GOERLI); // Ethereum Testnet Görli
 
 // listen for changes
 injectedHandler.listenForChanges('chainChanged', () => {console.log('network changed')});
@@ -66,9 +67,7 @@ async queryContract(address, abi,funcName,...args);
 
 async runContractTransactionFunc(address, abi, funcName,...args);
 
-async signMessage(message, address);
-
-async personalSign(message, address);
+async signMessage(message, toBytes = false);
 
 formatUnits(ether, num);
 

@@ -1,5 +1,4 @@
-import { convertUtf8ToHex } from "@walletconnect/utils";
-import { hashPersonalMessage, recoverPublicKey } from '../helpers/index';
+import { recoverPublicKey } from '../helpers/index';
 import { ethers } from 'ethers';
 
 class Base {
@@ -8,10 +7,6 @@ class Base {
     this.originProvider = originProvider;
     this.signer = web3Provider.getSigner();
     this.type = type;
-  }
-
-  getCurrentNetwork() {
-    return 1;
   }
 
   /**
@@ -61,19 +56,12 @@ class Base {
     return signer.toLowerCase() === address.toLowerCase();
   }
 
-  async signMessage (message, address) {
-    let hash = message;
-    if (this.type === 'injected') hash = hashPersonalMessage(message);
-    return await this.originProvider.request({ method: 'eth_sign', params: [address, hash] })
-  }
-
-  async personalSign(message, address){
-    const hexMsg = convertUtf8ToHex(message);
-    return this.originProvider.request({
-      method: 'personal_sign',
-      params: [hexMsg, address],
-      from: address
-    });
+  async signMessage (message, toBytes = false) {
+    if (toBytes === true) {
+      message = ethers.utils.arrayify(message);
+    }
+    const signature = await this.signer.signMessage(message);
+    return signature;
   }
 
   formatUnits(ether, num) {

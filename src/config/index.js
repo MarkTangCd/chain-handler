@@ -130,6 +130,24 @@ const NetworksDetails = [
       rpcUrls: ['https://exchainrpc.okex.org'],
       blockExplorerUrls: ['https://www.oklink.com/okexchain'],
     },
+  },
+  {
+    id: 'ETH_Goerli',
+    name: 'Ethereum Testnet Görli',
+    chainId: '0x5',
+    url: 'https://goerli.optimism.io/',
+    explorer: 'https://goerli.net/#about',
+    config: {
+      chainId: '0x5',
+      chainName: 'Ethereum Testnet Görli',
+      nativeCurrency: {
+        name: 'Görli Ether',
+        symbol: 'GOR',
+        decimals: 18,
+      },
+      rpcUrls: ['https://goerli.infura.io/v3/a892bade64884ad6a13cf9981de659eb'],
+      blockExplorerUrls: ['https://goerli.net/#about']
+    },
   }
 ]
 const Chains = unique(NetworksDetails.map((item) => item.name.split(' ')[0]))
@@ -141,6 +159,7 @@ const Networks = Object.freeze({
   BSC_MAIN: 'BSC-Mainnet',
   ETH_MAIN: 'ETH-Mainnet',
   OEC_MAIN: 'OEC-Mainnet',
+  ETH_GOERLI: 'ETH_Goerli'
 })
 
 const ChainIdByNetwork = {
@@ -150,6 +169,7 @@ const ChainIdByNetwork = {
   [Networks.BSC_MAIN]: 56,
   [Networks.ETH_MAIN]: 1,
   [Networks.OEC_MAIN]: 42,
+  [Networks.ETH_GOERLI]: 5,
 }
 
 const RpcList = {
@@ -162,6 +182,7 @@ const RpcList = {
   [ChainIdByNetwork[Networks.ETH_MAIN]]:
     'https://mainnet.infura.io/v3/a892bade64884ad6a13cf9981de659eb',
   [ChainIdByNetwork[Networks.OEC_TEST]]: 'https://exchainrpc.okex.org',
+  [ChainIdByNetwork[Networks.ETH_GOERLI]]: 'https://goerli.infura.io/v3/a892bade64884ad6a13cf9981de659eb'
 }
 
 export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains }
