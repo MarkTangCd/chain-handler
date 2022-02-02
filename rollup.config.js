@@ -1,5 +1,6 @@
 import { terser } from 'rollup-plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
+import typescript from '@rollup/plugin-typescript';
 import pkg from './package.json';
 
 const globals = {
@@ -10,7 +11,7 @@ const globals = {
 };
 
 export default {
-  input: 'src/main.js',
+  input: 'src/main.ts',
   output: [
     {
       file: pkg.main,
@@ -29,6 +30,6 @@ export default {
       globals
     }
   ],
-  plugins: [cleanup(), terser()],
+  plugins: [typescript(), cleanup(), terser()],
   external: ['@walletconnect/web3-provider', '@walletconnect/utils', 'ethers', 'ethereumjs-util']
 }

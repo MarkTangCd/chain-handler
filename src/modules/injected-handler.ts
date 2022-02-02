@@ -1,20 +1,19 @@
 import Base from './base';
 import { NOT_THE_CHAIN, UNSUPPORTED_OPERATION } from '../config/constants';
-import { Networks, NetworksDetails } from '../config/index';
+import { Networks, NetworksDetails, HandlerTypes } from '../config/index';
 import { ethers } from 'ethers';
 
 class InjectedHandler extends Base {
-  constructor(provider) {
-    const type = 'injected';
+  constructor(provider: Web3Provider) {
     const web3Provider = new ethers.providers.Web3Provider(provider);
-    super(provider, web3Provider, type);
+    super(provider, web3Provider, HandlerTypes.Injected);
   }
 
   async getAddress() {
     try {
       let address = await this.signer.getAddress();
       return address;
-    } catch(err) {
+    } catch(err: any) {
       if (err.code === UNSUPPORTED_OPERATION) {
         throw new Error('Please connect your wallet first');
       } else {
@@ -23,18 +22,18 @@ class InjectedHandler extends Base {
     }
   }
 
-  static connectWallet(callback = () => {}) {
+  static connectWallet(callback = (address: string) => {}) {
     window.ethereum.request({ method: 'eth_requestAccounts' })
-      .then(accounts => {
+      .then((accounts: string[])  => {
         // This is the current account.
         callback(accounts[0]);
       })
-      .catch(err => {
+      .catch((err: any) => {
         console.error(err.message);
       });
   }
 
-  async switchNetwork(network, callback = () => {}) {
+  async switchNetwork(network: string, callback = () => {}) {
     // Checking to connect status of the wallet.
     let address = await this.getAddress();
     if (!address) {
@@ -48,14 +47,14 @@ class InjectedHandler extends Base {
       throw new Error('The param is wrong.');
     }
 
-    let detail = NetworksDetails.find((item) => item.id === network);
+    let detail: any = NetworksDetails.find((item) => item.id === network);
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{chainId: detail.config.chainId}]
       })
       callback();
-    } catch (err) {
+    } catch (err: any) {
       if (err.code === NOT_THE_CHAIN) {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',

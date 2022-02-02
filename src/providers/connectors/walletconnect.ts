@@ -2,7 +2,14 @@ import { RpcList, Networks, ChainIdByNetwork } from '../../config/index';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import WalletConnectHandler from '../../modules/wallet-connect-handler';
 
-const ConnectToWalletConnect = (options) => {
+interface Options {
+  bridge?: string;
+  qrcode?: boolean;
+  infuraId?: string;
+  network?: string;
+  qrcodeModalOptions?: any;
+}
+const ConnectToWalletConnect = (options: Options) => {
   return new Promise(async (resolve, reject) => {
     let bridge = "https://bridge.walletconnect.org";
     let qrcode = true;

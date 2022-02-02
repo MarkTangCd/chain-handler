@@ -1,4 +1,4 @@
-function unique(arr) {
+function unique(arr: any[]) {
   if (!Array.isArray(arr)) {
     console.log('type error!')
     return
@@ -185,4 +185,9 @@ const RpcList = {
   [ChainIdByNetwork[Networks.ETH_GOERLI]]: 'https://goerli.infura.io/v3/a892bade64884ad6a13cf9981de659eb'
 }
 
-export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains }
+enum HandlerTypes {
+  Injected = 'injected',
+  WalletConnect = 'walletconnect'
+}
+
+export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains, HandlerTypes }
