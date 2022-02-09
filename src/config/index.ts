@@ -135,7 +135,7 @@ const NetworksDetails = [
     id: 'ETH_Goerli',
     name: 'Ethereum Testnet Görli',
     chainId: '0x5',
-    url: 'https://goerli.optimism.io/',
+    url: 'https://goerli.prylabs.net',
     explorer: 'https://goerli.net/#about',
     config: {
       chainId: '0x5',
@@ -145,7 +145,7 @@ const NetworksDetails = [
         symbol: 'GOR',
         decimals: 18,
       },
-      rpcUrls: ['https://goerli.infura.io/v3/a892bade64884ad6a13cf9981de659eb'],
+      rpcUrls: ['https://goerli.prylabs.net'],
       blockExplorerUrls: ['https://goerli.net/#about']
     },
   }
