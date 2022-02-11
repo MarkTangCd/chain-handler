@@ -142,11 +142,11 @@ const NetworksDetails = [
       chainName: 'Ethereum Testnet Görli',
       nativeCurrency: {
         name: 'Görli Ether',
-        symbol: 'GOR',
+        symbol: 'ETH',
         decimals: 18,
       },
-      rpcUrls: ['https://goerli.prylabs.net'],
-      blockExplorerUrls: ['https://goerli.net/#about']
+      rpcUrls: ['https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
+      blockExplorerUrls: ['https://goerli.etherscan.io']
     },
   }
 ]
