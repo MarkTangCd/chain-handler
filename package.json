@@ -1,6 +1,6 @@
 {
   "name": "chain-handler",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "This is the operation library of Smart Contract and Wallet.",
   "keywords": [
     "ethers",
