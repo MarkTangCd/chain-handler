@@ -15,6 +15,12 @@ class Base {
     this.type = type;
   }
 
+  protected resetProviders(originProvider: Web3Provider, web3Provider: ethers.providers.Web3Provider) {
+    this.originProvider = originProvider;
+    this.web3Provider = web3Provider;
+    this.signer = web3Provider.getSigner();
+  }
+
   /**
    * general contract method
    * @param address
