@@ -1,4 +1,4 @@
-import { RpcList, Networks, ChainIdByNetwork } from '../../config/index';
+import { RpcList, Networks, ChainIdByNetwork, SupportChain } from '../../config/index';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import WalletConnectHandler from '../../modules/wallet-connect-handler';
 
@@ -6,7 +6,7 @@ interface Options {
   bridge?: string;
   qrcode?: boolean;
   infuraId?: string;
-  network?: string;
+  network?: SupportChain;
   qrcodeModalOptions?: any;
 }
 const ConnectToWalletConnect = (options: Options) => {

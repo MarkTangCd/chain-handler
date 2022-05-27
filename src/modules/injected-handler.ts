@@ -1,6 +1,6 @@
 import Base from "./base";
 import { NOT_THE_CHAIN, UNSUPPORTED_OPERATION } from "../config/constants";
-import { Networks, NetworksDetails, HandlerTypes } from "../config/index";
+import { Networks, NetworksDetails, HandlerTypes, SupportChain } from "../config/index";
 import { ethers } from "ethers";
 
 class InjectedHandler extends Base {
@@ -54,7 +54,7 @@ class InjectedHandler extends Base {
     return provider;
   }
 
-  switchNetwork(network: string) {
+  switchNetwork(network: SupportChain) {
     return new Promise(async (resolve, reject) => {
       // Checking to connect status of the wallet.
       let address = await this.getAddress();

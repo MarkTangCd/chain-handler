@@ -28,6 +28,7 @@
     "build:types": "tsc"
   },
   "dependencies": {
+    "@coinbase/wallet-sdk": "^3.1.0",
     "@walletconnect/utils": "^1.7.1",
     "@walletconnect/web3-provider": "^1.6.5",
     "ethereumjs-util": "^7.1.3",

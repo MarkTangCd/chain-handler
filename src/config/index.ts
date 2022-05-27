@@ -152,6 +152,8 @@ const NetworksDetails = [
 ]
 const Chains = unique(NetworksDetails.map((item) => item.name.split(' ')[0]))
 
+type SupportChain = 'BSC-Testnet' | 'ETH-Testnet' | 'OEC-Testnet' | 'BSC-Mainnet' | 'ETH-Mainnet' | 'OEC-Mainnet' | 'ETH_Goerli';
+
 const Networks = Object.freeze({
   BSC_TEST: 'BSC-Testnet',
   ETH_TEST: 'ETH-Testnet',
@@ -190,4 +192,4 @@ enum HandlerTypes {
   WalletConnect = 'walletconnect'
 }
 
-export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains, HandlerTypes }
+export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains, HandlerTypes, SupportChain }

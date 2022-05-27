@@ -17,10 +17,17 @@ yarn add chain-handler
 2. Then you can add ChainHandler to your Dapp as follows
 
 ```js
-import { ConnectToInjected, ConnectToWalletConnect, Networks } from 'chain-handler';
+import { ConnectToInjected, ConnectToCoinbase, ConnectToWalletConnect, Networks } from 'chain-handler';
 
 // Initialization InjectedHandler
-let  injectedHandler = ConnectToInjected();
+let injectedHandler = ConnectToInjected();
+// if it's Coinbase
+let injectedHandler = ConnectToCoinbase({
+  appName: 'your app name',
+  appLogoURL: 'http://xxxxx.xxx/xxx.png',
+  network: Networks.ETH_MAIN,
+  jsonrpcURL: 'your infura url' // optional
+});
 // Initialization is successful after.
 // Get the latest wallet address.
 let address = await injectedHandler.getAddress();
