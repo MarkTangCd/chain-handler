@@ -1,7 +1,7 @@
 import ConnectToInjected from './providers/connectors/injected';
 import ConnectToWalletConnect from './providers/connectors/walletconnect';
 import ConnectToCoinbase from './providers/connectors/coinbase';
-import { Networks } from './config/index';
+import { Networks, InjectedTag } from './config/index';
 import * as Utils from './helpers/index';
 
 export {
@@ -9,5 +9,6 @@ export {
   ConnectToWalletConnect,
   ConnectToCoinbase,
   Networks,
-  Utils
+  Utils,
+  InjectedTag
 };

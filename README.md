@@ -17,10 +17,12 @@ yarn add chain-handler
 2. Then you can add ChainHandler to your Dapp as follows
 
 ```js
-import { ConnectToInjected, ConnectToCoinbase, ConnectToWalletConnect, Networks } from 'chain-handler';
+import { ConnectToInjected, ConnectToCoinbase, ConnectToWalletConnect, Networks, InjectedTag } from 'chain-handler';
 
 // Initialization InjectedHandler
 let injectedHandler = ConnectToInjected();
+// BitKeep Wallet
+let injectedHandler = ConnectToInjected(InjectedTag.BitKeep);
 // if it's Coinbase
 let injectedHandler = ConnectToCoinbase({
   appName: 'your app name',

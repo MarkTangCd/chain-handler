@@ -1,12 +1,16 @@
+import { ethers } from "ethers";
 import Base from "./base";
 import { NOT_THE_CHAIN, UNSUPPORTED_OPERATION } from "../config/constants";
-import { Networks, NetworksDetails, HandlerTypes, SupportChain } from "../config/index";
-import { ethers } from "ethers";
+import { Networks, NetworksDetails, HandlerTypes, SupportChain, InjectedTag } from "../config/index";
+import { getInjectProviderByTag } from '../providers/connectors/injected';
 
 class InjectedHandler extends Base {
-  constructor(provider: Web3Provider) {
+  tag: InjectedTag;
+
+  constructor(provider: Web3Provider, tag: InjectedTag = InjectedTag.Metamask) {
     const web3Provider = new ethers.providers.Web3Provider(provider);
     super(provider, web3Provider, HandlerTypes.Injected);
+    this.tag = tag;
   }
 
   async getAddress() {
@@ -20,38 +24,6 @@ class InjectedHandler extends Base {
         console.error(err);
       }
     }
-  }
-
-  static connectWallet(callback = (address: string) => {}) {
-    window.ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((accounts: string[]) => {
-        // This is the current account.
-        callback(accounts[0]);
-      })
-      .catch((err: any) => {
-        console.error(err.message);
-      });
-  }
-
-  private async getProvider() {
-    let provider = null;
-    if (typeof window.ethereum !== "undefined") {
-      provider = window.ethereum;
-      try {
-        await provider.request({ method: "eth_requestAccounts" });
-      } catch (error) {
-        throw new Error("User Rejected");
-      }
-    } else if (window.web3) {
-      provider = window.web3.currentProvider;
-    } else if (window.celo) {
-      provider = window.celo;
-    } else {
-      throw new Error("No Web3 Provider found");
-    }
-
-    return provider;
   }
 
   switchNetwork(network: SupportChain) {
@@ -71,14 +43,14 @@ class InjectedHandler extends Base {
 
       let detail: any = NetworksDetails.find((item) => item.id === network);
       try {
-        console.log("Switching network...", window.ethereum);
-        await window.ethereum.request({
+        console.log("Switching network...", this.originProvider);
+        await this.originProvider.request({
           method: "wallet_switchEthereumChain",
           params: [{ chainId: detail.config.chainId }],
         });
 
         // Switching networks after to need reset providers.
-        let provider = await this.getProvider();
+        let provider = getInjectProviderByTag(this.tag);
         console.log("Switched network successfully.", provider);
         const web3Provider = new ethers.providers.Web3Provider(provider);
         this.resetProviders(provider, web3Provider);
@@ -86,7 +58,7 @@ class InjectedHandler extends Base {
         resolve(true);
       } catch (err: any) {
         if (err.code === NOT_THE_CHAIN) {
-          await window.ethereum.request({
+          await this.originProvider.request({
             method: "wallet_addEthereumChain",
             params: [detail.config, address],
           });

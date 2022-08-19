@@ -192,4 +192,9 @@ enum HandlerTypes {
   WalletConnect = 'walletconnect'
 }
 
-export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains, HandlerTypes, SupportChain }
+enum InjectedTag {
+  Metamask,
+  BitKeep
+}
+
+export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains, HandlerTypes, SupportChain, InjectedTag }

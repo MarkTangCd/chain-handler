@@ -4,4 +4,6 @@ interface Window {
   ethereum: provider;
   web3: provider;
   celo: provider;
+  bitkeep: provider;
+  isBitKeep: boolean;
 }
