@@ -10,6 +10,9 @@ export function getInjectProviderByTag(tag: InjectedTag) {
     case InjectedTag.BitKeep:
       provider = getBitkeepProvider();
       break;
+    case InjectedTag.Coin98:
+      provider = getCoin98Provider();
+      break;
     default:
       provider = getDefaultProvider();
       break;
@@ -24,6 +27,14 @@ async function wakeWallet(provider: any) {
   } catch (error) {
     throw new Error('User Rejected');
   }
+}
+
+function getCoin98Provider() {
+  if(window.coin98){
+    return window.coin98;
+  }
+
+  return window.ethereum;
 }
 
 function getBitkeepProvider() {

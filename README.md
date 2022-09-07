@@ -23,6 +23,8 @@ import { ConnectToInjected, ConnectToCoinbase, ConnectToWalletConnect, Networks,
 let injectedHandler = ConnectToInjected();
 // BitKeep Wallet
 let injectedHandler = ConnectToInjected(InjectedTag.BitKeep);
+// Coin98 Wallet
+let injectedHandler = ConnectToInjected(InjectedTag.Coin98);
 // if it's Coinbase
 let injectedHandler = ConnectToCoinbase({
   appName: 'your app name',

@@ -194,7 +194,8 @@ enum HandlerTypes {
 
 enum InjectedTag {
   Metamask,
-  BitKeep
+  BitKeep,
+  Coin98
 }
 
 export { NetworksDetails, ChainIdByNetwork, Networks, RpcList, Chains, HandlerTypes, SupportChain, InjectedTag }

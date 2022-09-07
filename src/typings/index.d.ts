@@ -5,5 +5,6 @@ interface Window {
   web3: provider;
   celo: provider;
   bitkeep: provider;
+  coin98: provider;
   isBitKeep: boolean;
 }
