@@ -6,5 +6,6 @@ interface Window {
   celo: provider;
   bitkeep: provider;
   coin98: provider;
+  okxwallet: provider;
   isBitKeep: boolean;
 }

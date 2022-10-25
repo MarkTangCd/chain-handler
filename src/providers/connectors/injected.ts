@@ -13,6 +13,9 @@ export function getInjectProviderByTag(tag: InjectedTag) {
     case InjectedTag.Coin98:
       provider = getCoin98Provider();
       break;
+    case InjectedTag.OKX:
+      provider = getOKXProvider();
+      break;
     default:
       provider = getDefaultProvider();
       break;
@@ -27,6 +30,14 @@ async function wakeWallet(provider: any) {
   } catch (error) {
     throw new Error('User Rejected');
   }
+}
+
+function getOKXProvider() {
+  if(window.okxwallet){
+    return window.okxwallet;
+  }
+
+  return window.ethereum;
 }
 
 function getCoin98Provider() {
